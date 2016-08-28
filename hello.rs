@@ -1,14 +1,47 @@
-// This is a comment, and will be ignored by the compiler
-// You can test this code by clicking the "Run" button over there ->
-// or if prefer to use your keyboard, you can use the "Ctrl + Enter" shortcut
+use std::fmt;
 
-// This code is editable, feel free to hack it!
-// You can always return to the original code by clicking the "Reset" button ->
+#[derive(Debug)]
+struct MinMax(i64, i64);
 
-// This is the main function
+impl fmt::Display for MinMax {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "({}, {})", self.0, self.1)
+	}
+}
+
+#[derive(Debug)]
+struct Point2 {
+	x: f64,
+	y: f64,
+}
+
+impl fmt::Display for Point2 {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "x: {}, y: {}", self.x, self.y)
+	}
+}
+
 fn main() {
-    // The statements here will be executed when the compiled binary is called
+    let minmax = MinMax(0, 14);
 
-    // Print text to the console
-    println!("Hello {0}! Welcome to my {1} game. {2}-kahn.", "Michael", "first", 0);
+    println!("Compare structures:");
+    println!("Display: {}", minmax);
+    println!("Debug: {:?}", minmax);
+
+    let big_range =   MinMax(-300, 300);
+    let small_range = MinMax(-3, 3);
+
+    println!("The big range is {big} and the small is {small}",
+             small = small_range,
+             big = big_range);
+
+    let point = Point2 { x: 3.3, y: 7.2 };
+
+    println!("Compare points:");
+    println!("Display: {}", point);
+    println!("Debug: {:?}", point);
+
+    // Error. Both `Debug` and `Display` were implemented but `{:b}`
+    // requires `fmt::Binary` to be implemented. This will not work.
+    // println!("What does Point2D look like in binary: {:b}?", point);
 }
